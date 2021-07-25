@@ -26,7 +26,7 @@ class InstagramStoryPoster
      *
      * @throws InstagramStoryPosterException
      */
-    public function render(
+    public function upload(
         string $token,
         string $owner,
         string $repo,
