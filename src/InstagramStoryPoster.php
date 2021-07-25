@@ -23,7 +23,7 @@ class InstagramStoryPoster
      * @param array<string, mixed> $inputs
      * @param int $refreshTime in seconds
      *
-     * @return string video's file paths
+     * @return string instagram story id
      *
      * @throws InstagramStoryPosterException
      */
