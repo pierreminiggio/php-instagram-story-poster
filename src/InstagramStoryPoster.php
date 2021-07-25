@@ -4,6 +4,7 @@ namespace PierreMiniggio\InstagramStoryPoster;
 
 use Exception;
 use PierreMiniggio\GithubActionRunStarterAndArtifactDownloader\GithubActionRunStarterAndArtifactDownloader;
+use PierreMiniggio\GithubActionRunStarterAndArtifactDownloader\GithubActionRunStarterAndArtifactDownloaderFactory;
 
 class InstagramStoryPoster
 {
