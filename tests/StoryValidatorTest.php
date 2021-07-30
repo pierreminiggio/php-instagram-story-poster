@@ -3,19 +3,25 @@
 namespace PierreMiniggio\InstagramStoryPosterTest;
 
 use PHPUnit\Framework\TestCase;
-use PierreMiniggio\InstagramStoryPoster\StoryIdValidator;
+use PierreMiniggio\InstagramStoryPoster\StoryIdsValidator;
 
 class StoryValidatorTest extends TestCase
 {
     public function testGoodStoryId(): void
     {
-        $validator = new StoryIdValidator();
-        self::assertSame(true, $validator->validate('2625167186628519290_6064857443'));
+        $validator = new StoryIdsValidator();
+        self::assertSame([
+            '2629555640187552951_48999204161',
+            '2629555813965893993_48999204161',
+            '2629555970036098817_48999204161'
+        ], $validator->validate(
+            '["2629555640187552951_48999204161","2629555813965893993_48999204161","2629555970036098817_48999204161"]'
+        ));
     }
 
     public function testError(): void
     {
-        $validator = new StoryIdValidator();
+        $validator = new StoryIdsValidator();
         self::assertSame(false, $validator->validate('Error while blabla'));
     }
 }

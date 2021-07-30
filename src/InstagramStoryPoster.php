@@ -9,21 +9,21 @@ use PierreMiniggio\GithubActionRunStarterAndArtifactDownloader\GithubActionRunSt
 class InstagramStoryPoster
 {
     private GithubActionRunStarterAndArtifactDownloader $runnerAndDownloader;
-    private StoryIdValidator $validator;
+    private StoryIdsValidator $validator;
 
     public function __construct()
     {
         $this->runnerAndDownloader = (new GithubActionRunStarterAndArtifactDownloaderFactory())
             ->make()
         ;
-        $this->validator = new StoryIdValidator();
+        $this->validator = new StoryIdsValidator();
     }
 
     /**
      * @param array<string, mixed> $inputs
      * @param int $refreshTime in seconds
      *
-     * @return string instagram story id
+     * @return string[] instagram story ids
      *
      * @throws InstagramStoryPosterException
      */
@@ -35,7 +35,7 @@ class InstagramStoryPoster
         int $retries = 0,
         array $inputs = [],
         string $ref = 'main'
-    ): string
+    ): array
     {
         try {
             $files = $this->runnerAndDownloader->runActionAndGetArtifacts(
@@ -60,11 +60,13 @@ class InstagramStoryPoster
         $response = trim(file_get_contents($file));
         unlink($file);
 
-        if (! $this->validator->validate($response)) {
+        $validatedResponse = $this->validator->validate($response);
+
+        if ($validatedResponse === false) {
             throw new InstagramStoryPosterException('Action failed: ' . $response);
         }
 
-        return $response;
+        return $validatedResponse;
     }
 
     public function getRunnerAndDownloader(): GithubActionRunStarterAndArtifactDownloader
